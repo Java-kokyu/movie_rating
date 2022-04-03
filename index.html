@@ -84,16 +84,49 @@
         }
     </style>
     <script>
+
+
         $.ajax({
             type: "GET",
-            url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+            url: "http://spartacodingclub.shop/web/api/movie",
             data: {},
             success: function (response) {
-                // console.log(response['RealtimeCityAir']['row']);
-                let miseAry = response['RealtimeCityAir']['row'];
-                for(let i = 0; i < miseAry.length; i++){
-                    console.log("미세먼지 농도: " + miseAry[i]['IDEX_MVL'] + "구 이름: " + miseAry[i]['MSRSTE_NM']);
+
+                let movies = response['movies'];
+
+                for(let i = 0; i < movies.length; i++){
+                    let comment = movies[i]['comment'];
+                    let desc = movies[i]['desc'];
+                    let img = movies[i]['image'];
+                    let star = movies[i]['star'];
+                    let title = movies[i]['title'];
+
+                    let stars = ''
+
+                    for(let j = 0; j < star; j++){
+                        stars += '⭐';
+                    }
+
+                    console.log(stars)
+
+                    let movie_html = `<div class="col">
+                                     <div class="card">
+                                        <img src= ${img}
+                                             class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${title}</h5>
+                                            <p class="card-text">${desc}</p>
+                                            <p>${stars}</p>
+                                            <p class="mycomment">${comment}</p>
+                                        </div>
+                                    </div>
+                                </div>`
+
+
+
+                    $("#card-box").append(movie_html);
                 }
+
             }
         })
 
@@ -143,54 +176,7 @@
 
 <div class="wrap">
     <div id="card-box" class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
-            <div class="card">
-                <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                     class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">여기에 제목이 들어갑니다.</h5>
-                    <p class="card-text">여기에 내용이 들어갑니다.</p>
-                    <p>⭐⭐⭐</p>
-                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                     class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">여기에 제목이 들어갑니다.</h5>
-                    <p class="card-text">여기에 내용이 들어갑니다.</p>
-                    <p>⭐⭐⭐</p>
-                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                     class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">여기에 제목이 들어갑니다.</h5>
-                    <p class="card-text">여기에 내용이 들어갑니다.</p>
-                    <p>⭐⭐⭐</p>
-                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                     class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">여기에 제목이 들어갑니다.</h5>
-                    <p class="card-text">여기에 내용이 들어갑니다.</p>
-                    <p>⭐⭐⭐</p>
-                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
