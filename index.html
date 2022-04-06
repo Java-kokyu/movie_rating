@@ -85,31 +85,39 @@
     </style>
     <script>
 
+        $(document).ready(function () {
+            listing();
+        });
 
-        $.ajax({
-            type: "GET",
-            url: "http://spartacodingclub.shop/web/api/movie",
-            data: {},
-            success: function (response) {
+        function listing() {
+            console.log('화면 로딩 후 잘 실행되었습니다');
 
-                let movies = response['movies'];
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/web/api/movie",
+                data: {},
+                success: function (response) {
+                    $('#card-box').empty();
 
-                for(let i = 0; i < movies.length; i++){
-                    let comment = movies[i]['comment'];
-                    let desc = movies[i]['desc'];
-                    let img = movies[i]['image'];
-                    let star = movies[i]['star'];
-                    let title = movies[i]['title'];
+                    let movies = response['movies'];
 
-                    let stars = ''
+                    for (let i = 0; i < movies.length; i++) {
+                        let comment = movies[i]['comment'];
+                        let desc = movies[i]['desc'];
+                        let img = movies[i]['image'];
+                        let star = movies[i]['star'];
+                        let title = movies[i]['title'];
 
-                    for(let j = 0; j < star; j++){
-                        stars += '⭐';
-                    }
+                        // let stars = '';
+                        //
+                        // for (let j = 0; j < star; j++) {
+                        //     stars += '⭐';
+                        // }
 
-                    console.log(stars)
+                        let stars = '⭐'.repeat(star);
 
-                    let movie_html = `<div class="col">
+
+                        let movie_html = `<div class="col">
                                      <div class="card">
                                         <img src= ${img}
                                              class="card-img-top" alt="...">
@@ -123,12 +131,13 @@
                                 </div>`
 
 
+                        $("#card-box").append(movie_html);
+                    }
 
-                    $("#card-box").append(movie_html);
                 }
+            })
+        }
 
-            }
-        })
 
         function openBox() {
             $('#post-box').show();
